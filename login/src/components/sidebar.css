@@ -1,0 +1,10 @@
+ul{
+    padding: 20px;
+}
+ul li{
+    padding: 10px;
+}
+ul li:hover{
+    background-color: rgb(165, 157, 157);
+    cursor: pointer;
+}

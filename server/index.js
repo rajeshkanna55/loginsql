@@ -4,6 +4,7 @@ var connection=require("./lib/db");
 const body=require('body-parser');
 const cors=require('cors');
 const bcrypt=require('bcrypt');
+const router = require('./routes/profile');
 var port=4000;
 app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
@@ -72,3 +73,4 @@ app.get('/getusers',(req,res)=>{
 });
  
 app.listen(port);
+app.use('/profile',router);

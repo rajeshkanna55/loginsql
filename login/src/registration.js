@@ -2,9 +2,11 @@ import { Card, Grid,TextField,Button} from "@mui/material";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
 export function Register(){
 
+  const navigate= useNavigate();
    const [username,setUsername] = useState(""),
          [password,setPassword] = useState(''),
          [email,setEmail] = useState(''),
@@ -33,6 +35,7 @@ export function Register(){
             .then(async (res) => {
               if (await res.status === 200) {
                  alert("registered successfully");
+                 navigate('/login')
               }
             else if(await res.status=== 400){
                 alert('already registered');
@@ -40,7 +43,7 @@ export function Register(){
             else{
               alert('oops..! something went wrong');
             }
-          }).catch((err)=> alert('api error'))
+          }).catch((err)=>{ if(err) alert('api error');} )
          }
       }
    
@@ -84,6 +87,7 @@ export function Register(){
                        error
                        id="standard-error"
                        label="PassWord"
+                       type='password'
                        sx={{ width: "50vh" }}
                        variant="standard"
                      />
@@ -100,6 +104,7 @@ export function Register(){
                      sx={{ width: "50vh" }}
                      onChange={(e) => {
                        setUsername(e.target.value.trim());
+                       setError(false);
                      }}  />
                      <br></br>
                      <br></br>
@@ -111,6 +116,7 @@ export function Register(){
                      sx={{ width: "50vh" }}
                      onChange={(e) => {
                       setEmail(e.target.value.trim());
+                      setError(false);
                      }}
                    />
                    <br></br>
@@ -124,6 +130,7 @@ export function Register(){
                      sx={{ width: "50vh" }}
                      onChange={(e) => { 
                        setPassword(e.target.value.trim());
+                       setError(false);
                      }}
                    />
                    </>

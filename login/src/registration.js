@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import './registration.css';
 
 export function Register(){
 
@@ -50,10 +51,10 @@ export function Register(){
    
    return (
      <>
-       <div className="container" style={{ marginTop: "150px" }}>
+       <div className="container" style={{ marginTop: "100px" }}>
          <Grid container spacing={1}>
            <Grid item xs={2}>
-             <Card sx={{ minHeight: 400, marginTop: "50px" }}></Card>
+             <Card className="card1" sx={{ minHeight: 400, marginTop: "50px" }}></Card>
            </Grid>
            <Grid item xs={8}>
              <Card sx={{ minHeight: 500, borderRadius: "20px" }}>
@@ -161,7 +162,7 @@ export function Register(){
              </Card>
            </Grid>
            <Grid item xs={2}>
-             <Card sx={{ minHeight: 400, marginTop: "50px" }}></Card>
+             <Card className="card2" sx={{ minHeight: 400, marginTop: "50px" }}></Card>
            </Grid>
          </Grid>
        </div>

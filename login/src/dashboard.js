@@ -24,7 +24,7 @@ export function Dashboard(){
       
     return (
       <>
-        <Grid container spacing={1}>
+        <Grid container spacing={0}>
           <Grid xs={12}>
             <Navbar />
           </Grid>

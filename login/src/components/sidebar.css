@@ -1,10 +1,15 @@
-ul{
+/* ul{
     padding: 20px;
 }
 ul li{
     padding: 10px;
+    color:white;
 }
 ul li:hover{
-    background-color: rgb(165, 157, 157);
-    cursor: pointer;
+    /* background-color: rgb(165, 157, 157); */
+    /* color: yellow; */
+    /* cursor: pointer; */
+/* } */ 
+.active:active{
+    background-color: rgb(52,53,65);
 }

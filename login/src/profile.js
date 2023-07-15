@@ -1,5 +1,4 @@
 import { Grid,Card,Autocomplete,TextField,Radio,Switch,Button, FormControl} from "@mui/material";
-import Dashboard from "./dashboard";
 import Navbar from "./components/navbar";
 import Sidebar from "./components/sidebar";
 import { useState } from "react";
@@ -18,7 +17,7 @@ export function Profile(){
           [error,setError] = useState(false);
      
        
-  
+   
     const skills=['javascript','html','css','nodejs','python','java','php','c#','c++','c','mongodb','mysql'];
 
 
@@ -91,25 +90,36 @@ export function Profile(){
           <Grid item xs={9}>
             <Card sx={{ marginLeft: "20px", marginTop: "20px" }}>
               <form onSubmit={save}>
-                {error ? 
-                <h3 style={{ textAlign: "center",color:'red' }}>Please Fill The Details</h3> :  <h3 style={{ textAlign: "center" }}>Enter The Details</h3>
-                }
+                {error ? (
+                  <h3 style={{ textAlign: "center", color: "red" }}>
+                    Please Fill The Details
+                  </h3>
+                ) : (
+                  <h3 style={{ textAlign: "center" }}>Enter The Details</h3>
+                )}
                 <Grid container>
                   <Grid item xs={6}>
                     <div style={{ padding: "20px" }}>
-                      <TextField fullWidth label="Fullname" onChange={(e)=>{setFullname(e.target.value.trim())}} id="fullWidth" />
-                     
+                      <TextField
+                        fullWidth
+                        label="Fullname"
+                        onChange={(e) => {
+                          setFullname(e.target.value.trim());
+                        }}
+                        id="fullWidth"
+                      />
                     </div>
                   </Grid>
                   <Grid item xs={6}>
                     <div style={{ padding: "20px" }}>
                       <Autocomplete
+                        sx={{ color: "black" }}
                         multiple
                         id="tags-standard"
                         options={skills}
                         getOptionLabel={(option) => option}
-                         // defaultValue={[skills[3]]}
-                        
+                        // defaultValue={[skills[3]]}
+
                         renderInput={(params) => (
                           <TextField
                             {...params}
@@ -117,11 +127,10 @@ export function Profile(){
                             label="skills"
                             placeholder="Search"
                           />
-                         
                         )}
-                        onChange={(event,value) => {
-                            setSkill(value);
-                          }}    
+                        onChange={(event, value) => {
+                          setSkill(value);
+                        }}
                       />
                     </div>
                   </Grid>
@@ -132,41 +141,60 @@ export function Profile(){
                         label="Age"
                         type="number"
                         id="fullWidth"
-                        onChange={(e)=>{setAge(e.target.value)}}
+                        onChange={(e) => {
+                          setAge(e.target.value);
+                        }}
                       />
                     </div>
                   </Grid>
                   <Grid item xs={6}>
-                    <div style={{display:'flex',flexDirection:'row'}}>
-                    <h5 style={{marginTop:'6px'}}>Gender:</h5>
-                    <p style={{marginLeft:'20px'}}>Male<Radio {...controlProps("Male")} /></p>
-                    <p>Female<Radio
-                      {...controlProps("Female")}
-                      sx={{
-                        color: 'pink',
-                        "&.Mui-checked": {
-                          color: 'pink',
-                        },
-                      }}
-                    /></p>
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      <h5 style={{ marginTop: "6px" }}>Gender:</h5>
+                      <p style={{ marginLeft: "20px" }}>
+                        Male
+                        <Radio {...controlProps("Male")} />
+                      </p>
+                      <p>
+                        Female
+                        <Radio
+                          {...controlProps("Female")}
+                          sx={{
+                            color: "pink",
+                            "&.Mui-checked": {
+                              color: "pink",
+                            },
+                          }}
+                        />
+                      </p>
                     </div>
                   </Grid>
                   <Grid item xs={6}>
-                  <div style={{ padding: "20px" }}>
-                    <p>Details Are True
-
-                  <Switch {...label} checked={on} onChange={(e)=>{setOn(e.target.checked)}}/>
-                    </p>
-                  </div>
+                    <div style={{ padding: "20px" }}>
+                      <p>
+                        Details Are True
+                        <Switch
+                          {...label}
+                          checked={on}
+                          onChange={(e) => {
+                            setOn(e.target.checked);
+                          }}
+                        />
+                      </p>
+                    </div>
                   </Grid>
-                <Grid item xs={6}>
-                <div style={{ padding: "20px",display: 'flex', flexDirection: 'row-reverse' }}>
-                
-
-                    <Button type='submit' variant="contained" >Save</Button>
-                
-                </div> 
-                </Grid>
+                  <Grid item xs={6}>
+                    <div
+                      style={{
+                        padding: "20px",
+                        display: "flex",
+                        flexDirection: "row-reverse",
+                      }}
+                    >
+                      <Button type="submit" variant="contained">
+                        Save
+                      </Button>
+                    </div>
+                  </Grid>
                 </Grid>
               </form>
             </Card>

@@ -3,14 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useState} from 'react';
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "./auth/auth";
+import './login.css';
+import Image from './assets/question.png'
 export function Login(){
-
+      
   
    const [password,setPassword] = useState(''),
          [email,setEmail] = useState(''),
-         [error,setError] = useState(false);
-  const navigate= useNavigate();
+         [error,setError] = useState(false),
+         [img,setImg] = useState(false);
+         
+    const navigate= useNavigate();
+
+  const auth=useAuth();
       const login =()=>{
          if(password==='' && email==='')
          {
@@ -31,27 +37,31 @@ export function Login(){
             body: JSON.stringify(details)
           })
             .then(async (res) => {
-              if (await res.status === 200) {
-                 alert("login successfully");
-                 navigate('/dashboard')
+              const response=await res.json();
+              if (response.message === 'Success') {
+                 alert("Success");
+                 const user = response.token; 
+                 localStorage.setItem('user',user);
+                  navigate('/dashboard')
               }
-            else if(await res.status=== 400){
-                alert('incorrect username or password');
+            else if(response.message ==='Failure'){
+              alert('failure');
+                 setImg(true);
             }
             else{
               alert('oops..! something went wrong');
             }
-          }).catch((err)=> alert('api error'))
+          }).catch((err)=> console.log(err.message));
          }
       }
    
    
    return (
      <>
-       <div className="container" style={{ marginTop: "150px" }}>
+       <div className="container" style={{ marginTop: "100px" }}>
          <Grid container spacing={1}>
            <Grid item xs={2}>
-             <Card sx={{ minHeight: 400, marginTop: "50px" }}></Card>
+             <Card className="card1" sx={{ minHeight: 400, marginTop: "50px" }}></Card>
            </Grid>
            <Grid item xs={8}>
              <Card sx={{ minHeight: 500, borderRadius: "20px" }}>
@@ -93,6 +103,7 @@ export function Login(){
                      sx={{ width: "50vh" }}
                      onChange={(e) => {
                       setEmail(e.target.value.trim());
+                      setImg(false);
                      }}
                    />
                    <br></br>
@@ -106,6 +117,7 @@ export function Login(){
                      sx={{ width: "50vh" }}
                      onChange={(e) => { 
                        setPassword(e.target.value.trim());
+                       setImg(false);
                      }}
                    />
                    </>
@@ -122,21 +134,21 @@ export function Login(){
                   
                    <br></br>
                    <br></br>
-
+                   {img ? <img style={{width: '50px',height:'50px'}}src={Image}></img> : <> </>}
                    <Button
-                     sx={{ marginLeft: "250px" }}
+                     sx={{ marginLeft: "200px" }}
                      size={"large"}
                      variant="contained"
                      onClick={login}
                    >
-                     SignUp{" "}
+                     SignIn{" "}
                    </Button>
                  </Grid>
                </Grid>
              </Card>
            </Grid>
            <Grid item xs={2}>
-             <Card sx={{ minHeight: 400, marginTop: "50px" }}></Card>
+             <Card className="card2"sx={{ minHeight: 400, marginTop: "50px" }}></Card>
            </Grid>
          </Grid>
        </div>

@@ -1,0 +1,32 @@
+
+body{
+    background-color: rgb(215,187,245);
+  }
+.card1
+{
+   
+    position: relative;
+    animation-name: left;
+    
+    animation-duration: 5s;
+
+}
+
+@keyframes left{
+    from{right: 100px; background-color: rgb(215,187,245); }
+    to{right: 0px ;  }
+}
+.card2
+{
+   
+    position: relative;
+    animation-name: right;
+    animation-duration: 5s;
+
+}
+
+@keyframes right {
+    from{left: 100px; background-color: rgb(215,187,245) ;}
+    to{left: 0px;}
+    
+}

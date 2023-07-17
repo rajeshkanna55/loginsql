@@ -13,6 +13,7 @@ export function Profile(){
           [fullname,setFullname] = useState(''),
           [age,setAge] = useState(""),
           [gender,setGender] =  useState(''),
+          [address,setAddress] = useState(''),
           [on,setOn] = useState(false),
           [error,setError] = useState(false);
      
@@ -45,13 +46,15 @@ export function Profile(){
             skill:skill,
             age:age,
             gender:gender,
+            address: address,
             on:on  
          }   
         if(
           details.fullname === '' ||
           details.skill===[] ||
           details.age==="" ||
-          details.gender === ''
+          details.gender === '' ||
+          details.address === ''
           )
         {
           setError(true);
@@ -166,6 +169,20 @@ export function Profile(){
                           }}
                         />
                       </p>
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                  <div style={{ padding: "20px" }}>
+                      <TextField
+                        fullWidth   
+                        multiline
+                         rows={4}
+                        label="Address"
+                        onChange={(e) => {
+                          setAddress(e.target.value.trim());
+                        }}
+                        id="standard-multiline-static"
+                      />
                     </div>
                   </Grid>
                   <Grid item xs={6}>

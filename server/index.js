@@ -34,10 +34,8 @@ app.post('/registration',async(req,res)=>{
           {
              return  res.status(500).send({message: "database connection lost"})
           }
-          else{
-             
+          else{  
            return  res.status(200).send({message: "registered successfully",data: result});
-           
           }
         });
        }

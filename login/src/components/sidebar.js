@@ -6,6 +6,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PersonIcon from '@mui/icons-material/Person';
+import HomeIcon from '@mui/icons-material/Home';
 import { useMediaQuery } from 'react-responsive';
 import { useState } from "react";
 import * as React from 'react';
@@ -73,6 +74,14 @@ const Sidebar=()=>{
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
+      <ListItem key={"Home"}>
+          <ListItemButton onClick={()=>navigate('/dashboard')}>
+            <ListItemIcon>
+              <HomeIcon sx={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemText sx={{ color: "white" }} primary={"Home"} />
+          </ListItemButton>
+        </ListItem>
         <ListItem key={"Products"}>
           <ListItemButton onClick={handleClick}>
             <ListItemIcon>
@@ -178,31 +187,49 @@ const Sidebar=()=>{
             }}
           >
             <List>
+              <ListItem key={"Home"}>
+                <ListItemButton onClick={() => navigate("/dashboard")}>
+                  <ListItemIcon>
+                    <HomeIcon sx={{ color: "white" }} />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary={"Home"} />
+                </ListItemButton>
+              </ListItem>
               <ListItem key={"Products"}>
                 <ListItemButton onClick={handleClick}>
                   <ListItemIcon>
                     <FactoryIcon sx={{ color: "white" }} />
                   </ListItemIcon>
                   <ListItemText sx={{ color: "white" }} primary={"Products"} />
-                  {open ? <ExpandLessIcon sx={{ color: "white" }} /> : <ExpandMoreIcon sx={{ color: "white" }} />}
+                  {open ? (
+                    <ExpandLessIcon sx={{ color: "white" }} />
+                  ) : (
+                    <ExpandMoreIcon sx={{ color: "white" }} />
+                  )}
                 </ListItemButton>
               </ListItem>
               <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItemButton>
-                    <ListItemText sx={{ color: "white" }} primary="Accessories"  />
+                    <ListItemText
+                      sx={{ color: "white" }}
+                      primary="Accessories"
+                    />
                   </ListItemButton>
                   <ListItemButton>
-                    <ListItemText sx={{ color: "white" }} primary="FootWears"  />
+                    <ListItemText sx={{ color: "white" }} primary="FootWears" />
                   </ListItemButton>
                   <ListItemButton>
-                    <ListItemText sx={{ color: "white" }} primary="HomeAppliances"  />
+                    <ListItemText
+                      sx={{ color: "white" }}
+                      primary="HomeAppliances"
+                    />
                   </ListItemButton>
                 </List>
               </Collapse>
               <Divider sx={{ backgroundColor: "white" }} />
               <ListItem key={"About"}>
-                <ListItemButton >
+                <ListItemButton>
                   <ListItemIcon>
                     <ArticleIcon sx={{ color: "white" }} />
                   </ListItemIcon>
@@ -216,25 +243,35 @@ const Sidebar=()=>{
                     <PersonIcon sx={{ color: "white" }} />
                   </ListItemIcon>
                   <ListItemText sx={{ color: "white" }} primary={"Profile"} />
-                  {profile ? <ExpandLessIcon sx={{ color: "white" }} /> : <ExpandMoreIcon sx={{ color: "white" }} />}
+                  {profile ? (
+                    <ExpandLessIcon sx={{ color: "white" }} />
+                  ) : (
+                    <ExpandMoreIcon sx={{ color: "white" }} />
+                  )}
                 </ListItemButton>
               </ListItem>
               <Collapse in={profile} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemButton className={'active'} onClick={()=>navigate('/profile')}>
-              <ListItemIcon>
-                <LibraryAddIcon  sx={{ color: "white" }} />
-              </ListItemIcon>
-              <ListItemText  sx={{ color: "white" }} primary="AddDetails" />
-            </ListItemButton>
-            <ListItemButton onClick={handleLogout}>
-            <ListItemIcon>
-              <LogoutIcon sx={{ color: "white" }} />
-              </ListItemIcon>
-              <ListItemText  sx={{ color: "white" }} primary="Logout" />
-            </ListItemButton>
-          </List>
-        </Collapse>
+                <List component="div" disablePadding>
+                  <ListItemButton
+                    className={"active"}
+                    onClick={() => navigate("/profile")}
+                  >
+                    <ListItemIcon>
+                      <LibraryAddIcon sx={{ color: "white" }} />
+                    </ListItemIcon>
+                    <ListItemText
+                      sx={{ color: "white" }}
+                      primary="AddDetails"
+                    />
+                  </ListItemButton>
+                  <ListItemButton onClick={handleLogout}>
+                    <ListItemIcon>
+                      <LogoutIcon sx={{ color: "white" }} />
+                    </ListItemIcon>
+                    <ListItemText sx={{ color: "white" }} primary="Logout" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
               <Divider sx={{ backgroundColor: "white" }} />
               <ListItem key={"Careers"}>
                 <ListItemButton>

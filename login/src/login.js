@@ -43,7 +43,10 @@ export function Login(){
                  alert("Success");
                  const user = response.token; 
                  localStorage.setItem('user',user);
-                  navigate('/dashboard')
+                setTimeout(()=>{
+
+                  navigate('/dashboard');
+                },5000)
               }
             else if(response.message ==='Failure'){
               alert('failure');
@@ -62,6 +65,7 @@ export function Login(){
        <div className="container" style={{ marginTop: "100px" }}>
          <Grid container spacing={1}>
            <Grid item xs={2}>
+            
              <Card
                className="card1"
                sx={{

@@ -20,6 +20,8 @@ export function Profile(){
        
    
     const skills=['javascript','html','css','nodejs','python','java','php','c#','c++','c','mongodb','mysql'];
+ 
+    const token = localStorage.getItem('user');
 
 
     const handleChange = (event) => {
@@ -65,7 +67,8 @@ export function Profile(){
             method: 'POST',
             mode: 'cors',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              Authorization:  token 
             },
             body: JSON.stringify(details)
           }).then(async (res)=>{

@@ -7,7 +7,8 @@ import Profile from './profile';
 import { Token } from './auth/auth';
 
 function App() {
-    
+    const token=!!localStorage.getItem('user');
+
 
   return (
     <BrowserRouter>
@@ -15,8 +16,8 @@ function App() {
         <Route path="/" element={<Welcome />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
-         <Route path="/dashboard" element={ Token ? <Dashboard/> : <Navigate to='/login'/> }></Route>
-        <Route path="/profile" element={ Token ? <Profile />: <Navigate to='/login'/>}></Route>
+         <Route path="/dashboard" element={ token ? <Dashboard/> : <Navigate to='/login'/> }></Route>
+        <Route path="/profile" element={ token ? <Profile />: <Navigate to='/login'/>}></Route>
       </Routes>
     </BrowserRouter>
   );

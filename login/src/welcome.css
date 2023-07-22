@@ -14,7 +14,6 @@ p{
   }
   #test
   {
-    margin-top: 100px;
-    display: flex;
-    justify-content: end;
+    margin : 'auto';
+    width : 100px;
   }

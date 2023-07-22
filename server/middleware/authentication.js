@@ -10,7 +10,7 @@ require('dotenv/config')
   
     jwt.verify(token, process.env.JWT_SECRET_KEY, (error, decoded) => {
       if (error) {
-        return res.status(401).json({ message: 'Invalid token' });
+        return res.status(401).json({ message: error.message });
       }
   
       // Store the decoded payload data in the request for later use

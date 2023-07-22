@@ -13,7 +13,7 @@ import * as React from 'react';
 import { useNavigate } from "react-router-dom"; 
 import LogoutIcon from '@mui/icons-material/Logout';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
-import CloseIcon from '@mui/icons-material/Close';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import './sidebar.css';
 const Sidebar=()=>{
 
@@ -74,8 +74,8 @@ const Sidebar=()=>{
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-      <ListItem key={"Home"}>
-          <ListItemButton onClick={()=>navigate('/dashboard')}>
+        <ListItem key={"Home"}>
+          <ListItemButton onClick={() => navigate("/dashboard")}>
             <ListItemIcon>
               <HomeIcon sx={{ color: "white" }} />
             </ListItemIcon>
@@ -88,12 +88,19 @@ const Sidebar=()=>{
               <FactoryIcon sx={{ color: "white" }} />
             </ListItemIcon>
             <ListItemText sx={{ color: "white" }} primary={"Products"} />
-            {open ? <ExpandLessIcon sx={{ color: "white" }}/> : <ExpandMoreIcon sx={{ color: "white" }} />}
+            {open ? (
+              <ExpandLessIcon sx={{ color: "white" }} />
+            ) : (
+              <ExpandMoreIcon sx={{ color: "white" }} />
+            )}
           </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate("/accessories")}>
+              <ListItemIcon>
+                <ShoppingBagIcon sx={{ color: "white" }} />
+              </ListItemIcon>
               <ListItemText sx={{ color: "white" }} primary="Accessories" />
             </ListItemButton>
             <ListItemButton>
@@ -181,8 +188,7 @@ const Sidebar=()=>{
         ) : (
           <Card
             sx={{
-              height: "37rem",
-              marginTop: "10px",
+              height: "auto",
               backgroundColor: "rgb(134,110,199)",
             }}
           >
@@ -210,7 +216,10 @@ const Sidebar=()=>{
               </ListItem>
               <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <ListItemButton>
+               
+                    <ListItemButton onClick={()=>navigate('/accessories')}>
+                      <ShoppingBagIcon sx={{ color: "white" }} />
+                
                     <ListItemText
                       sx={{ color: "white" }}
                       primary="Accessories"

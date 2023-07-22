@@ -5,6 +5,7 @@ const body=require('body-parser');
 const cors=require('cors');
 const bcrypt=require('bcrypt');
 const router = require('./routes/profile');
+const router1 = require ('./routes/acssesories')
 const jwt = require('jsonwebtoken');
 require('dotenv/config');
 var port=4000;
@@ -86,6 +87,7 @@ app.get('/getusers',(req,res)=>{
         res.json(result);
       });
 });
- 
+app.use('/upload',express.static('upload'));
 app.listen(port);
 app.use('/profile',router);
+app.use('/products',router1)

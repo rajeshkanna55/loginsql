@@ -4,9 +4,12 @@ import Register from './registration';
 import Login from './login';
 import Dashboard from './dashboard';
 import Profile from './profile';
-import { Token } from './auth/auth';
+import Accessories from './accessories';
+import './App.css';
 
 function App() {
+
+  
     const token=!!localStorage.getItem('user');
 
 
@@ -16,8 +19,9 @@ function App() {
         <Route path="/" element={<Welcome />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
-         <Route path="/dashboard" element={ token ? <Dashboard/> : <Navigate to='/login'/> }></Route>
+         <Route path="/dashboard" element={<Dashboard/>}></Route>
         <Route path="/profile" element={ token ? <Profile />: <Navigate to='/login'/>}></Route>
+        <Route path="/accessories" element={ token ? <Accessories/>: <Navigate to='/login'/>}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -17,7 +17,7 @@ export function Welcome(){
                   {" "}
                   welcome to the website here click to enter the website
                 </h4>
-                <div className="container" id="test">
+                <div  className='container' id="test">
                   <Link to={"/register"}>
                     <Button variant="contained" size="large">
                       Enter

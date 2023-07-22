@@ -1,0 +1,28 @@
+#cancel_edit
+{
+    color: rgb(134,110,199);
+   background-color: rgb(193, 187, 207);
+}
+#cancel_edit:hover
+{
+    color: white;
+  background-color: rgb(134,110,199);
+}
+
+
+#save_edit
+{
+    color:rgb(134,110,199);
+    background-color: rgb(193, 187, 207);
+}
+
+#save_edit:hover
+{
+    color: white;
+  background-color: rgb(134,110,199);
+}
+#edit_user
+{
+    background-color:rgb(134,110,199) ;
+    color: white
+}

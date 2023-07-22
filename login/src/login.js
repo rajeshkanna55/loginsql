@@ -3,10 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./auth/auth";
 import './login.css';
 import Image from './assets/question.png';
-import setBodyColor from "./assets/color";
+
 export function Login(){
       
          
@@ -17,7 +16,6 @@ export function Login(){
          
     const navigate= useNavigate();
 
-  const auth=useAuth();
       const login =()=>{
          if(password==='' && email==='')
          {
@@ -40,13 +38,20 @@ export function Login(){
             .then(async (res) => {
               const response=await res.json();
               if (response.message === 'Success') {
-                 alert("Success");
                  const user = response.token; 
-                 localStorage.setItem('user',user);
-                setTimeout(()=>{
+                 if(!user)
+                 {
+                   alert('You Are Not Authorized Person')
+                 }
+                 else{
 
-                  navigate('/dashboard');
-                },5000)
+                   localStorage.setItem('user',user);
+                   alert('Success');
+                   navigate('/dashboard');
+                 }
+              
+
+              
               }
             else if(response.message ==='Failure'){
               alert('failure');
@@ -163,6 +168,7 @@ export function Login(){
                      <img
                        style={{ width: "50px", height: "50px" }}
                        src={Image}
+                       alt="can't find"
                      ></img>
                    ) : (
                      <> </>

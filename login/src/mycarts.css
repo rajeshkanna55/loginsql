@@ -1,0 +1,11 @@
+.mycart_list
+{
+  max-height:90vh;
+  overflow-y: scroll;
+}
+
+.mycart_list::-webkit-scrollbar
+{
+    display : none;
+}
+

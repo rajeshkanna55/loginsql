@@ -2,7 +2,6 @@
 import {TextField,Grid,Button,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions} from '@mui/material';
 
 export const Model=({open,close,save,data,setData})=>{
-    console.log({open})
     return (
       <>
         <Dialog

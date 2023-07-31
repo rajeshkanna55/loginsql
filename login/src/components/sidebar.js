@@ -15,6 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import './sidebar.css';
+import Products from "./products";
 const Sidebar=()=>{
 
   // navigate to other page
@@ -162,6 +163,7 @@ const Sidebar=()=>{
             <ListItemText sx={{ color: "white" }} primary={"Careers"} />
           </ListItemButton>
         </ListItem>
+       
       </List>
     </Box>
   );
@@ -172,7 +174,7 @@ const Sidebar=()=>{
             <React.Fragment key={anchor}>
               <Button
                 onClick={toggleDrawer(anchor, true)}
-                sx={{ position: "relative", bottom: "45px", color: "white" }}
+                sx={{ position: "fixed",left: 0,top:5,color:'white' ,zIndex: 1 }}
               >
                 <MenuIcon />
               </Button>
@@ -185,14 +187,22 @@ const Sidebar=()=>{
               </Drawer>
             </React.Fragment>
           </>
-        ) : (
+        ) 
+        
+        
+        :
+        
+        
+        (
           <Card
             sx={{
-              height: "auto",
+              height: "92vh",
               backgroundColor: "rgb(134,110,199)",
+              position: 'fixed',
+              top: 54,
             }}
           >
-            <List>
+            <List className='side_navbar'>
               <ListItem key={"Home"}>
                 <ListItemButton onClick={() => navigate("/dashboard")}>
                   <ListItemIcon>
@@ -292,6 +302,9 @@ const Sidebar=()=>{
               </ListItem>
             </List>
             <Divider sx={{ backgroundColor: "white" }} />
+            <ListItem key={"Careers"}>
+            <Products/>
+        </ListItem>
           </Card>
         )}
       </>

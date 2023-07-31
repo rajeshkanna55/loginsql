@@ -2,17 +2,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './dashboard.css';
 import { useState ,useEffect} from 'react';
-import {Paper,TableBody,TableCell,TableHead,TableContainer,TableRow,Grid,Button,Table} from '@mui/material';
+import {Paper,TableBody,TableCell,TableHead,TableContainer,TableRow,Grid,Button,Table,Backdrop} from '@mui/material';
 import Navbar from './components/navbar';
 import Sidebar from './components/sidebar';
 import { Model } from './components/model';
 import { useNavigate } from 'react-router-dom';
+import Products from './components/products';
+import { InfinitySpin } from  'react-loader-spinner'
 
 // const Transition = forwardRef(function Transition(props, ref) {
 //     return <Slide direction="left" ref={ref} {...props} />;
 //   });
 export function Dashboard(){
          const [user,setUser] = useState([]),
+               [loading,setLoading] = useState(false),
                [data,setData] = useState('');
         
           const navigate = useNavigate();
@@ -25,7 +28,7 @@ export function Dashboard(){
               .then(json => {
                   setUser(json.data);
               })
-         },[])
+         },[]);
      
         const [open, setOpen] = useState(false);
       
@@ -39,7 +42,6 @@ export function Dashboard(){
         };
 
        const save=()=>{
-       
         const uri='http://localhost:4000/profile/edit';
         fetch(uri, {
           method: 'POST',
@@ -68,16 +70,21 @@ export function Dashboard(){
        
     return (
       <>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}>
+          <InfinitySpin width="200" color="white" />
+        </Backdrop>
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <Navbar />
           </Grid>
           <Grid item xs={2}>
-            <Sidebar />
+            {/* <Sidebar /> */}
           </Grid>
           <Grid item xs={8}>
-            <TableContainer
-              sx={{ marginLeft: "50px", marginTop: "20px" }}
+            {/* <TableContainer
+              sx={{ position: "relative", top: 65 }}
               component={Paper}
             >
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -114,10 +121,16 @@ export function Dashboard(){
                   ))}
                 </TableBody>
               </Table>
-            </TableContainer>
+            </TableContainer> */}
           </Grid>
         </Grid>
-        <Model open={open} close={handleClose} data={data} setData={setData} save={save} />
+        <Model
+          open={open}
+          close={handleClose}
+          data={data}
+          setData={setData}
+          save={save}
+        />
       </>
     );
 }

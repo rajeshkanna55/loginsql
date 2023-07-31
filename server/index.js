@@ -7,6 +7,7 @@ const bcrypt=require('bcrypt');
 const router = require('./routes/profile');
 const router1 = require ('./routes/acssesories')
 const jwt = require('jsonwebtoken');
+const authenticateToken = require('./middleware/authentication');
 require('dotenv/config');
 var port=4000;
 app.use(body.urlencoded({ extended: false }));
@@ -16,7 +17,6 @@ app.post('/registration',async(req,res)=>{
   const { name,email,password } = req.body;
   const salt =await bcrypt.genSalt(10);
   const passWord = await bcrypt.hash(password, salt);
-  console.log(req.body);
   var check = "SELECT email FROM register WHERE email= ?";
   connection.query(check,[email],(err,result)=>{
       
@@ -24,19 +24,19 @@ app.post('/registration',async(req,res)=>{
 
             return  res.status(500).send({message: "something went wrong" ,error : err.message});
        }
-       else if(result.length!=0){
-         return  res.status(400).send({message: "already registered",data: result});
+       else if(result.length!==0){
+         return  res.status(400).send({message: "Exist",data: result});
           
        }
        else{
-        const query = 'INSERT INTO register (username, email, password) VALUES (?,?,?);';
+        const query = 'INSERT INTO register (username, email, password) VALUES (?,?,?)';
         connection.query(query,[name,email,passWord],function (err, result) {
           if (err) 
           {
              return  res.status(500).send({message: "database connection lost"})
           }
           else{  
-           return  res.status(200).send({message: "registered successfully",data: result});
+           return  res.status(200).send({message: "Success",data: result});
           }
         });
        }
@@ -80,11 +80,26 @@ app.post('/login',async (req,res)=>{
 
    });
 });
-app.get('/getusers',(req,res)=>{
-       const query='SELECT * FROM register'
-       connection.query(query,function (err, result) {
-        if (err) throw err.message;
-        res.json(result);
+app.get('/getusers',authenticateToken,(req,res)=>{
+         const id = req.user.id;
+       const query='SELECT profile_image FROM register WHERE id = ?'
+       connection.query(query,[id],function (err, result) {
+        if (err) 
+        {
+          return res.status(500).send({message: 'something went wrong',error: err.message})
+        }
+        else if(result[0].profile_image===null)
+        {
+          const null_path = result[0].profile_image;
+          return res.status(200).json({message:'Success',data :null_path});
+        }
+        else{
+          console.log();
+          const valid_array=result[0].profile_image.split("\\");
+          const image_name= valid_array[1];
+          const profile_image=req.protocol+ '://'+ req.hostname + ':' + 4000 + '/upload/' + image_name;
+          return res.status(200).json({message:'Success',data :profile_image});
+        }
       });
 });
 app.use('/upload',express.static('upload'));

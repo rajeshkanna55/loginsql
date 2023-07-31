@@ -18,7 +18,7 @@ export function Welcome(){
                   welcome to the website here click to enter the website
                 </h4>
                 <div  className='container' id="test">
-                  <Link to={"/register"}>
+                  <Link to={"/login"}>
                     <Button variant="contained" size="large">
                       Enter
                     </Button>

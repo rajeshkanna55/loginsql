@@ -3,8 +3,8 @@ const path = require('path')
 const fileUpload=(req,file,cb)=>{
     try
     {
-       
-        const dest='upload/';
+        
+        const dest='upload/products/acssesories/';
           cb(null,dest)
     }
     catch(err)
@@ -23,17 +23,17 @@ const fileFilter=(req,file,cb)=>{
         }
 }
 
+const fileName =(req,file,cb)=>{
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+}
 const storage = multer.diskStorage({
     destination: fileUpload,
-      filename: function (req, file, cb) {
-       
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const ext = path.extname(file.originalname);
-        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
-      },
+      filename: fileName
 })
 
-const upload = multer({
+const product = multer({
     storage:storage,
     fileFilter: fileFilter,
     limits :{
@@ -41,6 +41,4 @@ const upload = multer({
     },
  });
 
-module.exports = upload
-
-
+ module.exports = product

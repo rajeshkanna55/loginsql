@@ -90,9 +90,9 @@ export function Profile(){
           <Grid item xs={12}>
             <Navbar />
           </Grid>
-          <Grid item xs={2}>
+          {/* <Grid item xs={2}>
             <Sidebar />
-          </Grid>
+          </Grid> */}
           <Grid item xs={9}>
             <Card sx={{ marginLeft: "20px", marginTop: "20px" }}>
               <form onSubmit={save}>

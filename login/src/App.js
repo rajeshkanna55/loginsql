@@ -6,6 +6,8 @@ import Dashboard from './dashboard';
 import Profile from './profile';
 import Accessories from './accessories';
 import './App.css';
+import Mycarts from './mycarts';
+import UserDashboard from './profiledashboard';
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
          <Route path="/dashboard" element={<Dashboard/>}></Route>
         <Route path="/profile" element={ token ? <Profile />: <Navigate to='/login'/>}></Route>
         <Route path="/accessories" element={ token ? <Accessories/>: <Navigate to='/login'/>}></Route>
+        <Route path="/mycarts" element={ token ? <Mycarts/>: <Navigate to='/login'/>}></Route>
+        <Route path="/profile/dashboard" element={token ? <UserDashboard/> : <Navigate to='/login'/>}></Route>
       </Routes>
     </BrowserRouter>
   );

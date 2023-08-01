@@ -10,24 +10,30 @@ export default function Changepassword(){
       }
     return(
         <>
-      
+        <div style={{position:'relative',left:'10%',top:'10vh'}} >
         <Grid container gap={2}>
-        <Grid item xs={12} sm={12} md={6} lg={5}>
+        <Grid item xs={12} sm={12} md={8} lg={6}>
           <div className="container">
             <label>New passWord</label>
+            <div style={{display:'flex'}}>
             <input type={show ? "text":"password"} placeholder="New password" className="password" />
-            {show ? <VisibilityOffIcon onClick={showPassword}/> : <RemoveRedEyeIcon Onclick={showPassword}/> }
+            {show ? <VisibilityOffIcon sx={{position:'relative',right:'30px',top:'5px'}}onClick={showPassword}/> : <RemoveRedEyeIcon sx={{position:'relative',right:'30px',top:'5px'}} onClick={showPassword}/> }
+            </div>
           </div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={5}>
+          <br></br>
           <div className="container">
             <label>Confirm password</label>
-            <input type="password" placeholder="Confirm password" className="Cpass" />
+            <div style={{display:'flex'}}>
+            <input type={show ? "text":"password"} placeholder="Confirm password" className="Cpass" />
+            {show ? <VisibilityOffIcon sx={{position:'relative',right:'30px',top:'5px'}}onClick={showPassword}/> : <RemoveRedEyeIcon sx={{position:'relative',right:'30px',top:'5px'}} onClick={showPassword}/> }
+            </div>
           </div>
         </Grid>
-      </Grid>
-      <div className='container' style={{ display:'flex' , justifyContent:'end'}}>
+        <br></br>
+      <div className='container' style={{ display:'flex',justifyContent:'center'}}>
        <button className="changePass">Save</button>
+      </div>
+      </Grid>
       </div>
     </>
     );

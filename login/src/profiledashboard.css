@@ -55,6 +55,7 @@
     text-align: center;
     color:rgb(134,110,199) ;
     margin-bottom: 0px;
+    font-weight: bold;
   }
   .li:hover{
     background-color: rgb(134,110,199);

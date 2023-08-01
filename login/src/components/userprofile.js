@@ -2,14 +2,14 @@ import React from 'react';
 import UserProfileEdit from './userProfileEdit';
 import Changepassword from './changepassword';
 
-const MyComponent = ({ choice }) => {
+const MyComponent = ({choice,data}) => {
   let content;
 
   switch (choice) {
     case 'Edit':
       content = (
         <div>
-         <UserProfileEdit/>
+         <UserProfileEdit data={data}/>
         </div>
       );
       break;

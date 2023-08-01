@@ -5,11 +5,16 @@ import { useState } from "react";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import picture from '../assets/default-avatar-profile-icon-of-social-media-user-vector.jpg';
 import { InfinitySpin } from  'react-loader-spinner'
-
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 const Navbar=()=>{
       const [profile,setProfile] = useState(),
             [loading,setLoading] = useState(false);
            const navigate=useNavigate();
+
+           const handleLogout=()=>{
+              localStorage.removeItem('user');
+              navigate('/login');
+           }
       useEffect(()=>{
           setLoading(true);
             const token = localStorage.getItem('user')
@@ -26,7 +31,7 @@ const Navbar=()=>{
                     setLoading(false);
                     if(response.message === 'Success')
                     {
-                      if(response.data === null)
+                      if(response.data === null || response.data === undefined)
                       {
                            setProfile(picture);
                       }
@@ -51,6 +56,7 @@ const Navbar=()=>{
        <Card sx={{height:'8vh',backgroundColor:'rgb(134,110,199)',position:'fixed',top:0,width:"100%",zIndex: 1}}>
         
        <div style={{float:'right'}}>
+        <PowerSettingsNewIcon onClick={handleLogout} sx={{marginRight:'20px',color:'white',cursor: 'pointer'}} />
        <ShoppingCartIcon onClick={()=>navigate('/mycarts')} sx={{marginRight:'20px',color:'white',cursor: 'pointer'}}/>
         <Link to ={'/profile/dashboard'}>
           <img src={ profile } style={{width:'40px',height:'40px',borderRadius: "50%",marginRight:'10px',marginTop: '5px  '}} alt="profile"></img>

@@ -4,16 +4,23 @@ import picture from './assets/default-avatar-profile-icon-of-social-media-user-v
 import { useState ,useEffect } from 'react'
 import './profiledashboard.css';
 import { InfinitySpin } from  'react-loader-spinner'
-import UserProfileEdit from "./components/userProfileEdit";
 import MyComponent from "./components/userprofile";
+import { getUser } from "./users/userapi";
 
 export function UserDashboard(){
      const [avatar,setAvatar] = useState(),
            [choice,setchoice] = useState(''),
-           [loading,setLoading] = useState(false);
-        console.log(choice);
-          const get_profile=()=>{
-            const token = localStorage.getItem('user')
+           [loading,setLoading] = useState(false),
+           [token,setToken]  = useState(''),
+           [data,setData] = useState([]);
+            
+           
+           const getUserdata=async ()=>{
+              const data = await getUser(token);
+              console.log(data);
+           }
+          
+          const getProfile=()=>{
             const url = "http://localhost:4000/getusers";
               fetch(url,{
                  method: 'GET',
@@ -24,7 +31,6 @@ export function UserDashboard(){
               })
               .then( async (res) =>{
                      const response = await res.json();
-                     setLoading(false);
                      if(response.message === 'Success')
                      {
                        if(response.data === null)
@@ -40,13 +46,15 @@ export function UserDashboard(){
                      }   
               }).catch(err => alert(err))
           } 
-
+   
 
    useEffect(()=>{
-            setLoading(true);
-             get_profile();
-             setLoading(false); 
-           },[])
+        setLoading(true);
+        setToken(localStorage.getItem('user'));
+         getUserdata();
+        getProfile();
+       setLoading(false);
+           },[]);
    
       const handleContent=(value)=>{
             setchoice(value);
@@ -73,7 +81,7 @@ export function UserDashboard(){
                {
                  alert('profile changed successfully');
                  window.location.reload();
-                 get_profile(); 
+                 getProfile(); 
                }
               else{
                 console.log(response);
@@ -123,10 +131,14 @@ export function UserDashboard(){
                       </div>
                     </CardContent>
                     <p style={{ fontWeight: "bold", marginBottom: "0px" }}>
-                     Tom Holland
+                    user
+                     {/* {data[0].username && data[0].username} */}
                     </p>
                     <div>
-                      <p style={{marginBottom: "0px"}}>baz45@gmail.com</p>
+                      <p style={{marginBottom: "0px"}}>
+                      email
+                        {/* {data[0].email && data[0].email} */}
+                        </p>
                       <p>+04451 634531</p>
                      <ul className="ul">
                      <Divider />
@@ -145,7 +157,7 @@ export function UserDashboard(){
                   >
                     <CardContent>
                       <div className="container">
-                       <MyComponent choice={choice}/>
+                       <MyComponent choice={choice} data={data}/>
                       </div>
                     </CardContent>
                   </Card>

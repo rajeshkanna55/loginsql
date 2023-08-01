@@ -1,7 +1,8 @@
 var express=require('express');
 var router = express.Router();
 var connection =require('../lib/db');
-var authenticateToken= require('../middleware/authentication')
+var authenticateToken= require('../middleware/authentication');
+const { getuser, editUser } = require('../controllers/profile_details');
 router.post('/details',authenticateToken,async (req,res)=>{
      const {fullname,age,gender,address}= req.body; 
      const person_id = req.user.id;
@@ -20,21 +21,21 @@ router.post('/details',authenticateToken,async (req,res)=>{
     });
 });
 
-router.post('/edit',authenticateToken,async (req,res)=>{
-         const {id,fullname,age,address} = req.body;
-         const person_id = req.user.id;
-         const update= 'UPDATE userdetails SET person_id = ?,fullname = ?,age = ?,address = ? WHERE id = ?';
-        connection.query(update,[person_id,fullname,age,address,id],async (err,data)=>{
-                 if(err)
-                 { 
-                    return res.status(500).send({message:"something went wrong"});
-                 }
-                 else{
-                    return res.status(200).send({message:"Success",data: data});
-                 }
-        });
+// router.post('/edit',async (req,res)=>{
+//          const {id,fullname,age,address} = req.body;
+//          const person_id = req.user.id;
+//          const update= 'ALTER TABLE register ADD COLUMN(mobile INT,dob DATE,address VARCHAR(255))';
+//         connection.query(update,async (err,data)=>{
+//                  if(err)
+//                  { 
+//                     return res.status(500).send({message:err.message});
+//                  }
+//                  else{
+//                     return res.status(200).send({message:"Success",data: data});
+//                  }
+//         });
 
-});
+// });
 
 router.get('/users',async (req,res)=>{
     const get= 'SELECT id,age,fullname,address FROM userdetails';
@@ -51,4 +52,6 @@ router.get('/users',async (req,res)=>{
     });
 });
 
+router.get('/user',authenticateToken,getuser);
+router.post('/user/edit',authenticateToken,editUser);
 module.exports = router;

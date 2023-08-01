@@ -33,9 +33,7 @@ export function Accessories(){
           
          }   
            useEffect(()=>{
-          
             get_products();
-           
            },[]);
 
            const handleCart=(val)=>{
@@ -58,8 +56,7 @@ export function Accessories(){
                         if(response.message === 'Success')
                         {
                           setLoading(false);
-                           get_products();
-                           
+                           get_products();  
                         }
                         else{
                              alert('something went wrong');

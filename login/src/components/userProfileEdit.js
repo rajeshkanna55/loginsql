@@ -2,21 +2,21 @@ import { Grid } from "@mui/material";
 import './userProfileEdit.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-export default function UserProfileEdit(){
-   
+export default function UserProfileEdit({data}){
+            
     return (
       <>
         <Grid container gap={2}>
           <Grid item xs={12} sm={12} md={6} lg={5}>
             <div className="container">
               <label>Username</label>
-              <input type="text" placeholder="Username" className="username" />
+              <input type="text" value={data[0].username}placeholder="Username" className="username" />
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={5}>
             <div className="container">
               <label>Email</label>
-              <input type="email" placeholder="Email" className="email" />
+              <input type="email" placeholder="Email" value={data[0].email} className="email" />
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={5}>

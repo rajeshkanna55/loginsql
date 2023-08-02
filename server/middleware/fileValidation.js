@@ -3,7 +3,6 @@ const path = require('path')
 const fileUpload=(req,file,cb)=>{
     try
     {
-       
         const dest='upload/';
           cb(null,dest)
     }

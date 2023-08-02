@@ -82,6 +82,7 @@ app.post('/login',async (req,res)=>{
 });
 app.get('/getusers',authenticateToken,(req,res)=>{
          const id = req.user.id;
+        
        const query='SELECT profile_image FROM register WHERE id = ?'
        connection.query(query,[id],function (err, result) {
         if (err) 
@@ -94,7 +95,6 @@ app.get('/getusers',authenticateToken,(req,res)=>{
           return res.status(200).json({message:'Success',data :null_path});
         }
         else{
-          console.log();
           const valid_array=result[0].profile_image.split("\\");
           const image_name= valid_array[1];
           const profile_image=req.protocol+ '://'+ req.hostname + ':' + 4000 + '/upload/' + image_name;

@@ -5,22 +5,31 @@ import { useState ,useEffect } from 'react'
 import './profiledashboard.css';
 import { InfinitySpin } from  'react-loader-spinner'
 import MyComponent from "./components/userprofile";
-import { getUser } from "./users/userapi";
+import { getUser, userEdit } from "./users/userapi";
+import Joi from "joi";
+import { useNavigate } from "react-router-dom";
 
 export function UserDashboard(){
      const [avatar,setAvatar] = useState(),
            [choice,setchoice] = useState(''),
            [loading,setLoading] = useState(false),
-           [token,setToken]  = useState(''),
-           [data,setData] = useState([]);
-            
-           
-           const getUserdata=async ()=>{
+           [data,setData] = useState(''),
+           [formdata,setFormdata] = useState(),
+           [validation,setValidation] = useState();
+
+           const getUserdata=async (token)=>{
               const data = await getUser(token);
-              console.log(data);
+              if(data.message === 'Success' && data.data.length!==0)
+              {
+                setData(data.data[0]);
+                setFormdata(data.data[0]);
+              }
+              else{
+                alert('something went wrong');
+              }
            }
           
-          const getProfile=()=>{
+          const getProfile=(token)=>{
             const url = "http://localhost:4000/getusers";
               fetch(url,{
                  method: 'GET',
@@ -46,13 +55,63 @@ export function UserDashboard(){
                      }   
               }).catch(err => alert(err))
           } 
-   
+    const customTlds = ['com', 'org', 'net', 'io'];
+
+
+    const save = async () =>{
+      const token = localStorage.getItem('user');
+      const userEditSchema = Joi.object({
+          "id": Joi.number().required(),
+        "username": Joi.string().alphanum().min(8).max(30).required(),
+        email: Joi.string().email({tlds: { allow: customTlds }}).required(),
+        mobile: Joi.string().regex(/^\d{10}$/).required() .messages({
+          'string.base': 'Mobile number should be a string',
+          'string.empty': 'Mobile number is required',
+          'string.pattern.base': 'Mobile number must be a 10-digit number',
+          'any.required': 'Mobile number is required',
+        }),
+        dob:Joi.date()
+        .max('now') 
+        .iso()
+        .required()
+        .messages({
+          'date.base': 'Date of birth must be a valid date',
+          'date.format': 'Date of birth must be in ISO format (YYYY-MM-DD)',
+          'date.max': 'Date of birth cannot be in the future',
+          'any.required': 'Date of birth is required',
+        }),
+        address: Joi.string().min(10).max(2000).required(),
+      });
+      const { error, value }= userEditSchema.validate(formdata);
+      console.log('err: ',error,"id: ",typeof formdata.id);
+      if(error)
+      {  
+        const errors={};
+        for (let item of error.details) {
+               errors[item.path[0]] = item.message;
+            }
+          setValidation(errors);
+      }
+      else{
+          const response= await userEdit(formdata);
+          if(response.message === 'Success')
+          {
+            alert('edited successfully');
+            getUserdata(token);
+            setchoice('');
+          }
+          else{
+              alert('Please Try Later');
+          }
+      } 
+    }
+
 
    useEffect(()=>{
         setLoading(true);
-        setToken(localStorage.getItem('user'));
-         getUserdata();
-        getProfile();
+        const token = localStorage.getItem('user');
+        getProfile(token);
+        getUserdata(token);
        setLoading(false);
            },[]);
    
@@ -81,7 +140,7 @@ export function UserDashboard(){
                {
                  alert('profile changed successfully');
                  window.location.reload();
-                 getProfile(); 
+                 getProfile(token); 
                }
               else{
                 console.log(response);
@@ -131,15 +190,13 @@ export function UserDashboard(){
                       </div>
                     </CardContent>
                     <p style={{ fontWeight: "bold", marginBottom: "0px" }}>
-                    user
-                     {/* {data[0].username && data[0].username} */}
+                     {data?.username}
                     </p>
                     <div>
                       <p style={{marginBottom: "0px"}}>
-                      email
-                        {/* {data[0].email && data[0].email} */}
+                        {data?.email}
                         </p>
-                      <p>+04451 634531</p>
+                      <p>{data?.mobile}</p>
                      <ul className="ul">
                      <Divider />
                       <li className="li"  onClick={()=>handleContent('Edit')}>Edit Profile</li>
@@ -157,7 +214,7 @@ export function UserDashboard(){
                   >
                     <CardContent>
                       <div className="container">
-                       <MyComponent choice={choice} data={data}/>
+                       <MyComponent choice={choice} formdata={formdata} setFormdata={setFormdata} save={save} validation={validation}/>
                       </div>
                     </CardContent>
                   </Card>

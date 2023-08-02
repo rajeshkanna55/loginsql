@@ -12,8 +12,6 @@ require('dotenv/config')
       if (error) {
         return res.status(401).json({ message: error.message });
       }
-  
-      // Store the decoded payload data in the request for later use
          req.user = decoded;
          next();
     });

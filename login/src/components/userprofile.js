@@ -2,14 +2,14 @@ import React from 'react';
 import UserProfileEdit from './userProfileEdit';
 import Changepassword from './changepassword';
 
-const MyComponent = ({choice,data}) => {
+const MyComponent = ({choice,formdata,setFormdata,save,validation}) => {
   let content;
 
   switch (choice) {
     case 'Edit':
       content = (
         <div>
-         <UserProfileEdit data={data}/>
+         <UserProfileEdit formdata={formdata} setFormdata={setFormdata} save={save} validation={validation}/>
         </div>
       );
       break;

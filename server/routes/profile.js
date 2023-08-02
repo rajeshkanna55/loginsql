@@ -1,5 +1,5 @@
 var express=require('express');
-var router = express.Router();
+var  router = express.Router();
 var connection =require('../lib/db');
 var authenticateToken= require('../middleware/authentication');
 const { getuser, editUser } = require('../controllers/profile_details');
